@@ -1,0 +1,2718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hachi Ju Hachi — Authentic Japanese Cuisine · Saratoga, CA</title>
+  <meta name="description" content="Hachi Ju Hachi is a high-end Japanese restaurant in Historic Saratoga Village, CA. Experience the finest omakase, fresh fish from Japan, and warm hospitality.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── RESET & ROOT ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:         #1a1710;
+      --ink-deep:    #110f0c;
+      --paper:       #f7f2ea;
+      --parchment:   #ede7db;
+      --gold:        #c8a96e;
+      --gold-dim:    rgba(200, 169, 110, 0.35);
+      --gold-tint:   rgba(200, 169, 110, 0.10);
+      --charcoal:    #2a2620;
+      --stone:       #7a7264;
+      --stone-light: #a09888;
+      --ivory:       #f0e8d8;
+      --ivory-dim:   rgba(240, 232, 216, 0.68);
+      --white-card:  #fdfaf5;
+
+      --ff-serif: 'Cormorant Garamond', Georgia, serif;
+      --ff-sans:  'Noto Sans JP', sans-serif;
+
+      --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-sans);
+      background: var(--paper);
+      color: var(--charcoal);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVIGATION ────────────────────────────────────────────── */
+    nav#main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 66px;
+      background: rgba(17, 15, 12, 0.90);
+      backdrop-filter: blur(18px) saturate(1.6);
+      -webkit-backdrop-filter: blur(18px) saturate(1.6);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(20px, 5.5vw, 72px);
+      border-bottom: 1px solid rgba(200, 169, 110, 0.14);
+      transition: transform 0.42s var(--ease-out), opacity 0.42s ease;
+    }
+    nav#main-nav.hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo .kanji {
+      font-family: var(--ff-serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      line-height: 1;
+    }
+    .nav-logo .wordmark {
+      font-family: var(--ff-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(240, 232, 216, 0.50);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: clamp(18px, 2.8vw, 44px);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav-links a {
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(240, 232, 216, 0.60);
+      text-decoration: none;
+      transition: color 0.25s ease;
+      white-space: nowrap;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-phone {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: opacity 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-phone:hover { opacity: 0.7; }
+    .nav-phone svg {
+      width: 14px;
+      height: 14px;
+      opacity: 0.8;
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ivory);
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile overlay */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(17, 15, 12, 0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 38px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--ff-serif);
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 300;
+      color: var(--ivory);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.25s ease;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+    .mobile-close {
+      position: absolute;
+      top: 22px; right: 26px;
+      font-size: 26px;
+      color: var(--stone-light);
+      background: none;
+      border: none;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 580px;
+      /* Hard clip — image cannot bleed outside these bounds */
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    /* Restaurant photo — fills exactly the hero viewport, no excess */
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Center crop — keeps the warm dining tables in frame */
+      object-position: center 50%;
+      display: block;
+      filter: brightness(1.06) contrast(1.04) saturate(1.08);
+    }
+
+    /* Centered overlay — darkens behind the centered text */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(
+          ellipse 70% 65% at 50% 50%,
+          rgba(10, 8, 5, 0.78) 0%,
+          rgba(10, 8, 5, 0.52) 45%,
+          rgba(10, 8, 5, 0.18) 75%,
+          transparent 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(10, 8, 5, 0.30) 0%,
+          transparent 20%,
+          transparent 75%,
+          rgba(10, 8, 5, 0.50) 100%
+        );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 clamp(24px, 8vw, 120px);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--ff-sans);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(200, 169, 110, 0.95);
+      margin-bottom: 22px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.3s forwards;
+    }
+
+    .hero-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(58px, 9vw, 112px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ivory);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 1.0s var(--ease-out) 0.5s forwards;
+    }
+
+    .hero-kanji {
+      font-family: var(--ff-serif);
+      font-size: clamp(28px, 3.5vw, 48px);
+      font-style: normal;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+    }
+
+    .hero-rule {
+      width: 52px;
+      height: 1px;
+      background: var(--gold-dim);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeIn 1s ease 0.9s forwards;
+    }
+
+    .hero-sub {
+      font-family: var(--ff-sans);
+      font-size: clamp(17px, 1.6vw, 21px);
+      font-weight: 400;
+      color: rgba(220, 212, 198, 0.95);
+      line-height: 1.85;
+      max-width: 480px;
+      margin-bottom: 40px;
+      letter-spacing: 0.02em;
+      opacity: 0;
+      animation: fadeUp 1.0s var(--ease-out) 1.0s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 1.2s forwards;
+    }
+
+    .btn {
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 13px 30px;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      display: inline-block;
+      white-space: nowrap;
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--ink-deep);
+      border: 1px solid var(--gold);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-gold::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      transition: width 0.4s var(--ease-out);
+      z-index: -1;
+    }
+    .btn-gold:hover::before {
+      width: 100%;
+    }
+    .btn-gold:hover {
+      color: var(--ink-deep);
+    }
+    .btn-ghost {
+      background: var(--ink-deep);
+      color: rgba(240, 232, 216, 0.95);
+      border: 1px solid var(--ink-deep);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .btn-ghost::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      transition: width 0.4s var(--ease-out);
+      z-index: -1;
+    }
+    .btn-ghost:hover::before {
+      width: 100%;
+    }
+    .btn-ghost:hover {
+      color: var(--ink-deep);
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      animation: fadeIn 1s ease 1.9s forwards;
+    }
+    .hero-scroll-hint span {
+      font-family: var(--ff-sans);
+      font-size: 9px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: rgba(160, 152, 136, 0.5);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 32px;
+      background: linear-gradient(to bottom, rgba(200,169,110,0.45), transparent);
+      animation: linePulse 2.5s ease-in-out 2s infinite;
+    }
+
+    /* ─── SHARED SECTION STYLES ─────────────────────────────────── */
+    .section { padding: clamp(80px, 10vw, 136px) clamp(24px, 6.5vw, 80px); }
+    .section-inner { max-width: 1180px; margin: 0 auto; }
+
+    .label {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+
+    .thin-rule {
+      display: block;
+      width: 54px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+    .thin-rule.center { margin: 0 auto; }
+
+    /* ─── PHILOSOPHY ────────────────────────────────────────────── */
+    .philosophy { background: var(--paper); }
+
+    .philosophy-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: clamp(40px, 7vw, 110px);
+      align-items: center;
+    }
+
+    .phil-photo-col {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1px;
+      /* Fixed height so the photo doesn't stretch the layout */
+      height: clamp(340px, 44vw, 560px);
+    }
+    .phil-photo-col img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Show the owner/interior — centre-crop keeps the warm mid-room view */
+      object-position: center 45%;
+      display: block;
+      filter: brightness(0.97) saturate(1.05);
+    }
+    /* Subtle warm vignette on the photo */
+    .phil-photo-col::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        transparent 55%,
+        rgba(26, 23, 16, 0.18) 100%
+      );
+      pointer-events: none;
+    }
+
+    .phil-text { }
+    .phil-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 26px;
+    }
+    .phil-body {
+      font-family: var(--ff-sans);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.95;
+      letter-spacing: 0.015em;
+      margin-bottom: 18px;
+    }
+
+    .phil-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 38px;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 24px 16px;
+      background: rgba(200, 169, 110, 0.04);
+      border: 1px solid rgba(200, 169, 110, 0.12);
+      border-radius: 2px;
+      transition: all 0.4s var(--ease-out);
+    }
+    .stat-card:hover {
+      background: rgba(200, 169, 110, 0.08);
+      border-color: rgba(200, 169, 110, 0.22);
+      transform: translateY(-4px);
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 16px;
+      opacity: 0.75;
+    }
+
+    .stat-number {
+      font-family: var(--ff-serif);
+      font-size: clamp(32px, 3.5vw, 42px);
+      font-weight: 400;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* ─── CHEF'S TABLE ──────────────────────────────────────────── */
+    .chefs-table {
+      background: var(--ink-deep);
+      position: relative;
+      overflow: hidden;
+      padding: clamp(90px, 11vw, 155px) clamp(24px, 6.5vw, 80px);
+    }
+    .chefs-table::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 85% at 50% 38%, rgba(40, 32, 16, 0.88) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    /* Grain overlay */
+    .chefs-table::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.55;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 160px;
+      pointer-events: none;
+    }
+
+    .chefs-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 7vw, 90px);
+      align-items: center;
+    }
+
+    .chefs-content {
+      text-align: left;
+    }
+
+    .chefs-image-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 100%; /* Square aspect ratio */
+      background: rgba(240, 232, 216, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      border: 1px solid rgba(200, 169, 110, 0.15);
+    }
+    .chefs-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8a96e' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Ccircle cx='8.5' cy='8.5' r='1.5'/%3E%3Cpolyline points='21 15 16 10 5 21'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      z-index: 0;
+    }
+    .chefs-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      z-index: 1;
+    }
+    .chefs-image.active {
+      opacity: 1;
+    }
+
+    /* Chef's Selection Carousel Controls */
+    .chefs-carousel-controls {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 10;
+    }
+
+    .chefs-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(200, 169, 110, 0.4);
+      background: rgba(17, 15, 12, 0.70);
+      backdrop-filter: blur(8px);
+      color: var(--ivory);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .chefs-arrow:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(17, 15, 12, 0.90);
+    }
+
+    .chefs-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .chefs-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(240, 232, 216, 0.30);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+    .chefs-dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--ff-sans);
+      font-size: 9.5px;
+      font-weight: 400;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(200, 169, 110, 0.38);
+      padding: 8px 20px;
+      border-radius: 1px;
+      margin-bottom: 30px;
+    }
+
+    .chefs-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(52px, 7vw, 82px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ivory);
+      line-height: 0.96;
+      letter-spacing: -0.015em;
+      margin-bottom: 14px;
+    }
+    .chefs-jp {
+      font-family: var(--ff-serif);
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      margin-bottom: 30px;
+    }
+    .chefs-hr {
+      width: 58px;
+      height: 1px;
+      background: var(--gold-dim);
+      margin: 0 0 32px 0;
+    }
+    .chefs-desc {
+      font-family: var(--ff-sans);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ivory-dim);
+      line-height: 1.95;
+      letter-spacing: 0.02em;
+      margin: 0 0 56px 0;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(200, 169, 110, 0.14);
+      margin-bottom: 48px;
+    }
+    .pillar {
+      padding: 28px 20px 0;
+      text-align: left;
+      border-right: 1px solid rgba(200, 169, 110, 0.09);
+    }
+    .pillar:last-child { border-right: none; }
+    .pillar-title {
+      font-family: var(--ff-serif);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--ivory);
+      margin-bottom: 9px;
+      letter-spacing: 0.02em;
+    }
+    .pillar-desc {
+      font-family: var(--ff-sans);
+      font-size: 13.5px;
+      font-weight: 300;
+      color: rgba(160, 152, 136, 0.70);
+      line-height: 1.75;
+      letter-spacing: 0.02em;
+    }
+
+    .text-link {
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: gap 0.3s ease, opacity 0.3s ease;
+    }
+    .text-link::after { content: '→'; font-size: 14px; }
+    .text-link:hover { gap: 16px; opacity: 0.75; }
+
+    /* ─── MENU ──────────────────────────────────────────────────── */
+    .menu-section { 
+      background: var(--ink-deep);
+      position: relative;
+      overflow: hidden;
+      padding: 0 clamp(24px, 6.5vw, 80px);
+    }
+    /* Radial gradient overlay like Chef's Table */
+    .menu-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 85% at 50% 38%, rgba(40, 32, 16, 0.88) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    /* Grain overlay */
+    .menu-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0.55;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      background-size: 160px;
+      pointer-events: none;
+    }
+
+    .menu-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 64px;
+      position: relative;
+      z-index: 2;
+      padding-top: 48px;
+    }
+    .menu-header .section-eyebrow {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .menu-header h2 {
+      font-family: var(--ff-serif);
+      font-size: clamp(38px, 5vw, 56px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ivory);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+    }
+    .menu-header p {
+      font-family: var(--ff-sans);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ivory-dim);
+      line-height: 1.75;
+      letter-spacing: 0.015em;
+    }
+
+    /* Menu Carousel */
+    .menu-carousel-wrap {
+      max-width: 1400px;
+      margin: 0 auto 48px;
+      position: relative;
+      padding: 0 80px;
+      z-index: 2;
+    }
+
+    .menu-carousel-track {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .menu-carousel-inner {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dish-card {
+      background: var(--white-card);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(26, 23, 16, 0.06);
+      transition: all 0.4s var(--ease-out);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .dish-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(26, 23, 16, 0.12);
+    }
+
+    .dish-image-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 75%; /* 4:3 aspect ratio */
+      overflow: hidden;
+      background: var(--parchment);
+    }
+    .dish-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .dish-card:hover .dish-image {
+      transform: scale(1.08);
+    }
+
+    .dish-content {
+      padding: 24px 22px 26px;
+    }
+    .dish-name {
+      font-family: var(--ff-serif);
+      font-size: 21px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+    .dish-desc {
+      font-family: var(--ff-sans);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    /* Carousel Controls */
+    .menu-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(240, 232, 216, 0.25);
+      background: rgba(17, 15, 12, 0.60);
+      backdrop-filter: blur(8px);
+      color: var(--ivory);
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .menu-carousel-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(17, 15, 12, 0.85);
+    }
+    .menu-carousel-btn.prev { left: 0; }
+    .menu-carousel-btn.next { right: 0; }
+
+    /* Dots */
+    .menu-carousel-dots {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 42px;
+      position: relative;
+      z-index: 2;
+    }
+    .menu-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(240, 232, 216, 0.20);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+    .menu-dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
+    /* Progress bar */
+    .menu-carousel-progress {
+      height: 2px;
+      background: rgba(200, 169, 110, 0.22);
+      margin: 0 auto 48px;
+      max-width: 1400px;
+      overflow: hidden;
+      border-radius: 1px;
+      position: relative;
+      z-index: 2;
+    }
+    .menu-carousel-progress-bar {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width linear;
+    }
+
+    .menu-cta { 
+      max-width: 1400px; 
+      margin: 0 auto; 
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    .btn-outline-dark {
+      display: inline-block;
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 14px 36px;
+      border-radius: 1px;
+      border: 1px solid rgba(240, 232, 216, 0.30);
+      color: var(--ivory);
+      transition: all 0.3s ease;
+    }
+    .btn-outline-dark:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(200, 169, 110, 0.08);
+    }
+
+    @media (max-width: 860px) {
+      .menu-carousel-wrap { padding: 0 60px; }
+      .menu-carousel-btn { width: 38px; height: 38px; font-size: 16px; }
+    }
+    @media (max-width: 580px) {
+      .menu-carousel-wrap { padding: 0 54px; }
+      .menu-carousel-btn { width: 34px; height: 34px; font-size: 14px; }
+    }
+
+    /* ─── REVIEWS CAROUSEL ──────────────────────────────────────── */
+    .reviews {
+      background: var(--paper);
+      padding: clamp(48px, 6vw, 72px) clamp(24px, 6.5vw, 80px);
+    }
+
+    .reviews-head {
+      max-width: 1180px;
+      margin: 0 auto 32px;
+      text-align: center;
+    }
+    .reviews-heading {
+      font-family: var(--ff-serif);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 300;
+      color: var(--charcoal);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    /* Outer wrapper — masks the sliding track */
+    .carousel-wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+      padding: 0 58px;
+    }
+
+    /* The sliding track — clips the overflow */
+    .carousel-track {
+      overflow: hidden;
+      border-radius: 1px;
+    }
+    .carousel-inner {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.62s var(--ease-out);
+      will-change: transform;
+    }
+
+    /* Each card — width set in JS to fill 3-up */
+    .review-card {
+      flex-shrink: 0;
+      background: var(--white-card);
+      border-left: 3px solid var(--gold);
+      padding: 20px 22px 18px;
+      box-shadow: 0 2px 20px rgba(26, 23, 16, 0.05);
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+    }
+    .review-mark {
+      position: absolute;
+      top: 8px; right: 14px;
+      font-family: var(--ff-serif);
+      font-size: 70px;
+      font-weight: 600;
+      color: rgba(200, 169, 110, 0.09);
+      line-height: 0.85;
+      pointer-events: none;
+    }
+    .review-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 10px;
+    }
+    .review-stars span {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+    .review-text {
+      font-family: var(--ff-sans);
+      font-size: 13px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--charcoal);
+      line-height: 1.75;
+      letter-spacing: 0.01em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .review-footer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-footer-rule {
+      flex: 1;
+      height: 1px;
+      background: rgba(200, 169, 110, 0.22);
+    }
+    .review-name {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* Prev / Next arrow buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--white-card);
+      border: 1px solid rgba(200, 169, 110, 0.28);
+      color: var(--stone);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease;
+      z-index: 10;
+    }
+    .carousel-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--paper);
+    }
+    .carousel-btn.prev { left: 0; }
+    .carousel-btn.next { right: 0; }
+
+    /* Dot indicators */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(200, 169, 110, 0.25);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
+    /* Progress bar */
+    .carousel-progress {
+      height: 1px;
+      background: rgba(200, 169, 110, 0.14);
+      margin-top: 16px;
+      overflow: hidden;
+      border-radius: 1px;
+    }
+    .carousel-progress-bar {
+      height: 100%;
+      background: var(--gold);
+      width: 0%;
+      transition: width linear;
+    }
+
+    @media (max-width: 860px) {
+      /* 2 visible on tablet — JS reads this */
+      .carousel-wrap { padding: 0 48px; }
+    }
+    @media (max-width: 580px) {
+      /* 1 visible on mobile — JS reads this */
+      .carousel-wrap { padding: 0 44px; }
+      .review-card { padding: 26px 20px 22px; }
+    }
+
+    /* ─── VISIT ─────────────────────────────────────────────────── */
+    .visit {
+      background: var(--ink);
+      padding: clamp(48px, 6vw, 80px) clamp(24px, 6.5vw, 80px);
+      position: relative;
+      overflow: hidden;
+    }
+    .visit::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 85% 75% at 18% 55%, rgba(30, 26, 16, 0.82) 0%, transparent 62%);
+      pointer-events: none;
+    }
+    .visit-grid {
+      position: relative;
+      z-index: 2;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.75fr 1.25fr;
+      gap: clamp(24px, 4vw, 48px);
+      align-items: stretch;
+    }
+
+    /* Left info panel */
+    .visit-info-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Each labeled block */
+    .info-block {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(200, 169, 110, 0.12);
+    }
+    .info-block:first-child { padding-top: 0; }
+    .info-block:last-child  { border-bottom: none; padding-bottom: 0; }
+
+    .info-block-label {
+      font-family: var(--ff-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .info-block-label svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.8;
+    }
+
+    .info-address {
+      font-family: var(--ff-sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ivory);
+      line-height: 1.7;
+    }
+    .info-address .sub {
+      color: var(--stone-light);
+      font-size: 13px;
+    }
+
+    .info-phone {
+      font-family: var(--ff-serif);
+      font-size: clamp(22px, 2.5vw, 28px);
+      font-weight: 400;
+      color: var(--ivory);
+      letter-spacing: 0.02em;
+    }
+    .info-phone a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .info-phone a:hover { color: var(--gold); }
+
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table td {
+      font-family: var(--ff-sans);
+      font-size: 13.5px;
+      font-weight: 300;
+      padding: 3px 0;
+      vertical-align: middle;
+    }
+    .hours-table td:first-child {
+      color: var(--stone-light);
+      width: 110px;
+      letter-spacing: 0.01em;
+    }
+    .hours-table td:last-child { color: var(--ivory); }
+    .hours-table tr.closed td { color: rgba(122, 114, 100, 0.38); }
+    .thu-badge {
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-left: 6px;
+      text-transform: uppercase;
+    }
+
+    .socials {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .socials a {
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stone-light);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .socials a:hover { color: var(--gold); }
+
+    /* Map panel — fills the right column fully */
+    .map-panel {
+      border-radius: 1px;
+      overflow: hidden;
+      position: relative;
+      min-height: 400px;
+      border: 1px solid rgba(200, 169, 110, 0.18);
+    }
+    .map-panel iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      border: none;
+      filter: saturate(0.9) contrast(1.02);
+    }
+
+    @media (max-width: 760px) {
+      .visit-grid { grid-template-columns: 1fr; }
+      .map-panel, .map-panel iframe { min-height: 280px; }
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────────── */
+    footer {
+      background: var(--ink-deep);
+      padding: 58px clamp(24px, 6.5vw, 80px) 38px;
+      border-top: 1px solid rgba(200, 169, 110, 0.1);
+    }
+    .footer-inner { max-width: 1180px; margin: 0 auto; text-align: center; }
+    .footer-kanji {
+      display: block;
+      font-family: var(--ff-serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--gold);
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+    }
+    .footer-name {
+      display: block;
+      font-family: var(--ff-sans);
+      font-size: 9.5px;
+      font-weight: 400;
+      letter-spacing: 0.30em;
+      text-transform: uppercase;
+      color: rgba(240, 232, 216, 0.28);
+      margin-bottom: 24px;
+    }
+    .footer-tagline {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--stone);
+      margin-bottom: 22px;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      margin-bottom: 34px;
+    }
+    .footer-socials a {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .footer-socials a:hover { color: var(--gold); }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      margin-bottom: 34px;
+    }
+    .footer-links a {
+      font-family: var(--ff-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-separator {
+      color: rgba(122, 114, 100, 0.3);
+      font-size: 11px;
+    }
+    .footer-line {
+      width: 100%;
+      height: 1px;
+      background: rgba(200, 169, 110, 0.09);
+      margin-bottom: 18px;
+    }
+    .footer-copy {
+      font-family: var(--ff-sans);
+      font-size: 12.5px;
+      font-weight: 300;
+      color: rgba(122, 114, 100, 0.45);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── PRIVACY MODAL ─────────────────────────────────────────── */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(17, 15, 12, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      overflow-y: auto;
+      animation: fadeIn 0.3s ease;
+    }
+    .privacy-modal.active { display: flex; }
+    
+    .privacy-modal-content {
+      position: relative;
+      background: var(--paper);
+      margin: auto;
+      max-width: 800px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      border-radius: 2px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+      animation: slideUp 0.4s var(--ease-out);
+    }
+
+    .privacy-modal-header {
+      position: sticky;
+      top: 0;
+      background: var(--ink-deep);
+      padding: 24px 32px;
+      border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .privacy-modal-title {
+      font-family: var(--ff-serif);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ivory);
+      line-height: 1.2;
+    }
+
+    .privacy-modal-close {
+      background: none;
+      border: none;
+      color: var(--stone-light);
+      font-size: 32px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.25s ease;
+    }
+    .privacy-modal-close:hover { color: var(--gold); }
+
+    .privacy-modal-body {
+      padding: 40px 32px 48px;
+    }
+
+    .privacy-modal-body .subtitle {
+      font-family: var(--ff-sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--stone);
+      letter-spacing: 0.06em;
+      margin-bottom: 28px;
+    }
+
+    .privacy-modal-body h2 {
+      font-family: var(--ff-serif);
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 400;
+      color: var(--charcoal);
+      line-height: 1.25;
+      margin-top: 42px;
+      margin-bottom: 14px;
+    }
+
+    .privacy-modal-body h3 {
+      font-family: var(--ff-serif);
+      font-size: 19px;
+      font-weight: 400;
+      color: var(--charcoal);
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .privacy-modal-body p {
+      font-family: var(--ff-sans);
+      font-size: 14.5px;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.8;
+      letter-spacing: 0.01em;
+      margin-bottom: 16px;
+    }
+
+    .privacy-modal-body ul {
+      margin: 16px 0 16px 24px;
+    }
+
+    .privacy-modal-body li {
+      font-family: var(--ff-sans);
+      font-size: 14.5px;
+      font-weight: 300;
+      color: var(--stone);
+      line-height: 1.75;
+      margin-bottom: 8px;
+    }
+
+    .privacy-modal-body strong {
+      font-weight: 400;
+      color: var(--charcoal);
+    }
+
+    .contact-box {
+      background: rgba(200, 169, 110, 0.08);
+      border-left: 2px solid var(--gold);
+      padding: 20px 24px;
+      margin: 32px 0;
+      border-radius: 1px;
+    }
+    .contact-box p {
+      margin-bottom: 8px;
+    }
+    .contact-box p:last-child {
+      margin-bottom: 0;
+    }
+    .contact-box a {
+      color: var(--gold);
+      text-decoration: none;
+    }
+    .contact-box a:hover {
+      opacity: 0.7;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .privacy-modal-content {
+        width: 95%;
+        max-height: 90vh;
+      }
+      .privacy-modal-header {
+        padding: 20px 24px;
+      }
+      .privacy-modal-body {
+        padding: 32px 24px 40px;
+      }
+    }
+
+    /* ─── SCROLL REVEAL ─────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.82s var(--ease-out), transform 0.82s var(--ease-out);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.10s; }
+    .d2 { transition-delay: 0.20s; }
+    .d3 { transition-delay: 0.30s; }
+    .d4 { transition-delay: 0.42s; }
+    .d5 { transition-delay: 0.52s; }
+
+    /* ─── KEYFRAMES ─────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes linePulse {
+      0%,100% { opacity: 0.38; transform: scaleY(1); transform-origin: top; }
+      50%      { opacity: 0.9;  transform: scaleY(1.18); }
+    }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────────── */
+    @media (max-width: 920px) {
+      .philosophy-grid { grid-template-columns: 1fr; text-align: center; }
+      .phil-photo-col { height: clamp(220px, 50vw, 360px); }
+      .phil-text .thin-rule { margin: 0 auto; }
+      .phil-stats { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+      .chefs-inner { grid-template-columns: 1fr; }
+      .chefs-content { text-align: center; }
+      .chefs-hr { margin: 0 auto 32px; }
+      .chefs-image-wrap { max-width: 500px; margin: 0 auto; }
+
+      .pillars { grid-template-columns: 1fr; border-top: none; }
+      .pillar {
+        border-left: 1px solid rgba(200, 169, 110, 0.13);
+        border-right: none !important;
+        border-top: 1px solid rgba(200, 169, 110, 0.09);
+        padding: 22px 20px 0;
+        text-align: left;
+      }
+      .pillar:first-child { border-top: 1px solid rgba(200, 169, 110, 0.13); }
+
+      .menu-intro { grid-template-columns: 1fr; gap: 14px; }
+      .menu-grid  { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .visit-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      .nav-links, .nav-phone { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 440px) {
+      .review-card { padding: 28px 20px 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ────────────────────────────────────────────────────────── -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo">
+    <span class="kanji">八十八</span>
+    <span class="wordmark">Hachi Ju Hachi</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="https://places.singleplatform.com/hachi-ju-hachi/menu?ref=google" target="_blank" rel="noopener">Menu</a></li>
+    <li><a href="#visit">Reservations</a></li>
+    <li><a href="#philosophy">About</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+
+  <a href="tel:+14086472258" class="nav-phone">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+    (408) 647-2258
+  </a>
+
+  <button class="nav-hamburger" id="ham-btn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mob-menu">
+  <button class="mobile-close" id="mob-close">✕</button>
+  <a href="https://places.singleplatform.com/hachi-ju-hachi/menu?ref=google" target="_blank" rel="noopener">Menu</a>
+  <a href="#visit">Reservations</a>
+  <a href="#philosophy">About</a>
+  <a href="#chefs">Chef's Table</a>
+  <a href="#visit">Visit</a>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────────────── -->
+<section class="hero" id="hero">
+  <img
+    class="hero-img"
+    src="hachihero.png"
+    alt="Hachi Ju Hachi dining room — warm evening ambiance"
+  >
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">日本料理 &nbsp;·&nbsp; Saratoga Village</span>
+    <h1 class="hero-title">
+      Hachi Ju Hachi
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">
+      Authentic Japanese cuisine in the heart of<br>Historic Saratoga Village, California
+    </p>
+    <div class="hero-actions">
+      <a href="#visit" class="btn btn-gold">Reserve a Table</a>
+      <a href="https://places.singleplatform.com/hachi-ju-hachi/menu?ref=google"
+         target="_blank" rel="noopener"
+         class="btn btn-ghost">View Menu</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MENU ───────────────────────────────────────────────────────── -->
+<section class="menu-section section" id="menu">
+  <div class="menu-header">
+    <span class="section-eyebrow reveal">Featured Dishes</span>
+    <h2 class="reveal d1">The Menu</h2>
+    <p class="reveal d2">
+      Discover our chef's signature creations — each dish a harmonious blend of tradition and artistry, prepared with the finest ingredients.
+    </p>
+  </div>
+
+  <div class="menu-cta reveal d2" style="margin-bottom: 48px;">
+    <a href="https://places.singleplatform.com/hachi-ju-hachi/menu?ref=google"
+       target="_blank" rel="noopener"
+       class="btn-outline-dark">Explore Full Menu</a>
+  </div>
+
+  <div class="menu-carousel-wrap reveal d1">
+    <!-- Prev / Next -->
+    <button class="menu-carousel-btn prev" id="menu-prev" aria-label="Previous dish">&#8592;</button>
+    <button class="menu-carousel-btn next" id="menu-next" aria-label="Next dish">&#8594;</button>
+
+    <!-- Track -->
+    <div class="menu-carousel-track" id="menu-track">
+      <div class="menu-carousel-inner" id="menu-inner">
+        
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="sake.png" alt="Premium Sake Selection" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Premium Sake</h3>
+            <p class="dish-desc">Carefully curated selection of fine sake from renowned breweries across Japan</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="bluefinsushi.png" alt="Bluefin Sushi" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Bluefin Sushi</h3>
+            <p class="dish-desc">Exquisite bluefin tuna, hand-selected and expertly prepared for an unforgettable experience</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="butaniku.png" alt="Butaniku" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Butaniku</h3>
+            <p class="dish-desc">Tender pork dish seasoned with authentic Japanese flavors and grilled to perfection</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="chazuke.png" alt="Chazuke" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Chazuke</h3>
+            <p class="dish-desc">Comforting rice dish in warm tea broth, topped with seasonal garnishes</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="chickenteriyaki.png" alt="Chicken Teriyaki" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Chicken Teriyaki</h3>
+            <p class="dish-desc">Succulent chicken glazed in our house-made teriyaki sauce, a timeless favorite</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="gyozadumplings.png" alt="Gyoza Dumplings" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Gyoza Dumplings</h3>
+            <p class="dish-desc">Delicate dumplings filled with seasoned pork and vegetables, pan-fried until golden</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="porkbelly.png" alt="Pork Belly" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Pork Belly</h3>
+            <p class="dish-desc">Melt-in-your-mouth pork belly with a perfect balance of richness and savory depth</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="sushisetsalmon.png" alt="Sushi Set Salmon" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Sushi Set Salmon</h3>
+            <p class="dish-desc">Premium salmon sushi artfully arranged, showcasing the finest cuts of fresh fish</p>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-image-wrap">
+            <img src="eggzosui.png" alt="Tamago Zosui" class="dish-image">
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-name">Tamago Zosui</h3>
+            <p class="dish-desc">Traditional Japanese rice soup with silky egg, comfort in every warming spoonful</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Dots -->
+  <div class="menu-carousel-dots" id="menu-dots"></div>
+
+  <!-- Progress -->
+  <div class="menu-carousel-progress">
+    <div class="menu-carousel-progress-bar" id="menu-progress"></div>
+  </div>
+</section>
+
+<!-- ── PHILOSOPHY ─────────────────────────────────────────────────── -->
+<section class="philosophy section" id="philosophy">
+  <div class="philosophy-grid">
+    <div class="phil-photo-col reveal">
+      <img src="hachiowner.png" alt="Hachi Ju Hachi restaurant interior">
+    </div>
+    <div class="phil-text">
+      <span class="label reveal">Our Philosophy</span>
+      <h2 class="phil-heading reveal d1">
+        The Art of<br>Mindful Hospitality
+      </h2>
+      <p class="phil-body reveal d2">
+        At Hachi Ju Hachi, we believe that a great meal is more than food on a plate — it is an experience of warmth, presence, and craft. Our chefs bring the finest ingredients directly from Japan, prepared with techniques passed down through generations.
+      </p>
+      <p class="phil-body reveal d3">
+        We named our restaurant after the number 88, a symbol of good fortune and abundance in Japanese culture. Every evening, we gather around the table to share that abundance with you.
+      </p>
+      <span class="thin-rule reveal d4"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ── CHEF'S TABLE ────────────────────────────────────────────────── -->
+<section class="chefs-table" id="chefs">
+  <div class="chefs-inner">
+    <div class="chefs-content">
+      <span class="badge reveal">Thursday Evenings</span>
+      <h2 class="chefs-heading reveal d1">Chef's Selection</h2>
+      <p class="chefs-jp reveal d2">おまかせ</p>
+      <div class="chefs-hr reveal d2"></div>
+      <p class="chefs-desc reveal d3">
+        Surrender to the chef. Each Thursday, we receive the finest fresh fish flown directly from Japan. Ask for the Chef's Selection — a freestyle dinner with no menu, where our chef curates every course to its peak perfection. No two meals are alike.
+      </p>
+      <div class="pillars reveal d3">
+        <div class="pillar">
+          <div class="pillar-title">Fresh from Japan</div>
+          <div class="pillar-desc">Seasonal fish and ingredients airlifted weekly</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">No Menu</div>
+          <div class="pillar-desc">A deeply personal, curated experience</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-title">Chef's Vision</div>
+          <div class="pillar-desc">Trust the craft, taste the difference</div>
+        </div>
+      </div>
+      <a href="#visit" class="text-link reveal d4">
+        Reserve for Thursday
+      </a>
+    </div>
+    <div class="chefs-image-wrap reveal d2">
+      <img src="chefspecial1.png" alt="Chef's Selection dish" class="chefs-image active">
+      <img src="chefspecial2.png" alt="Chef's Selection dish" class="chefs-image">
+      <img src="chefspecial3.png" alt="Chef's Selection dish" class="chefs-image">
+      
+      <div class="chefs-carousel-controls">
+        <button class="chefs-arrow chefs-prev" aria-label="Previous image">&#8592;</button>
+        <div class="chefs-dots">
+          <button class="chefs-dot active" data-index="0" aria-label="Image 1"></button>
+          <button class="chefs-dot" data-index="1" aria-label="Image 2"></button>
+          <button class="chefs-dot" data-index="2" aria-label="Image 3"></button>
+        </div>
+        <button class="chefs-arrow chefs-next" aria-label="Next image">&#8594;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REVIEWS ─────────────────────────────────────────────────────── -->
+<section class="reviews section" id="reviews">
+  <div class="reviews-head reveal">
+    <span class="label">Guest Voices</span>
+    <h2 class="reviews-heading">Memories Made Here</h2>
+  </div>
+
+  <div class="carousel-wrap reveal d1">
+    <!-- Prev / Next -->
+    <button class="carousel-btn prev" id="car-prev" aria-label="Previous review">&#8592;</button>
+    <button class="carousel-btn next" id="car-next" aria-label="Next review">&#8594;</button>
+
+    <!-- Sliding track -->
+    <div class="carousel-track" id="car-track">
+      <div class="carousel-inner" id="car-inner">
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Wow. Came in the early evening when the restaurant was still empty. Unassuming place where we didn't really expect much. Ordered Toro, a rice tea soup bowl with grilled pork myself. Wow. Food was delicious. Stop reading and just get over there.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Angela H.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">We had the Kaiseki experience at Hachi Ju Hachi, and it was exceptional. Our table was in a small room next to the kitchen — Chef Suzuki prepared parts of our meal and engaged with us throughout the evening. The smoked cod was a standout, even for someone who doesn't usually enjoy cod. Service pacing was perfect, and the whole evening felt calm, thoughtful, and memorable.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">William R.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Best Japanese food in the Bay. If you like to taste the fish and not just spicy mayo, come here. If you want to try Japanese food that's not Americanized, come here. Also the owners are lovely and there's always room — hidden gem.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Gadi D.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Amazing! I lived in Japan for 3.5 years and the food here is fantastic. It's very fresh, flavorful, and tasty — even for someone who has lived in Japan for a long time. We got the set A menu, and next time we will get set B to try more items. The chefs and waitresses were working incredibly hard to make sure every order came out just right.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Julie T.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">This place is so wonderful! The server was amazing and the chef was super friendly! The food is authentic and delicious. Not your typical restaurant — you could see the chef puts lots of effort into the dishes. It is like home cooking, and feels very inviting. Would definitely recommend and return multiple times. I wish I could give it 10,000,000 / 10,000,000.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Ruby</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Chef Suzuki makes some of the best sushi in the bay area. The menu is full of unique dishes you might not find anywhere else — tuna and okra, three deep vegetables in broth, pork belly and black rice vinegar, and so much more. We recommend the sashimi platter and the Set A that has a great selection. You are paying for great quality and great cooking.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Mini R.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">This is a special little restaurant for authentic Japanese cuisine. The head chef runs a kitchen open to be viewed by the patrons. We had an assortment of sushi, sashimi, pork belly, tempura, and other miscellaneous dishes — everything was outstanding.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Davey F.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">I've dined at Hachi Ju Hachi numerous times, and each time the chef and hostess gave us a big welcome. The sashimi would rival that which you'd order in Japan. The chef is a true artist. I can't praise this place more highly — their friendly, welcoming staff and absolutely incredible food speak for themselves.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Nathan S.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Best Japanese restaurant in the bay area. You got to try the Thursday dinner — fresh fish from Japan. Ask for "chef's selection" — no menu freestyle dinner to get the best from the chef. We have been here 20+ times in the last five years.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Anya C.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Every time I come here with my friends and family, we are always welcomed by the lively servers and chefs. The food is the finest quality Japanese food I have ever had in the area. They take their time and it shows with the presentation. I highly recommend this restaurant for authentic Japanese food.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Alex F.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">If you like egg at all this place is a must. The chef is so friendly, passionate, and skilled at his craft. It has never disappointed.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Daniel D.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Not the typical Americanized Japanese food that you find in most restaurants. The food here is authentic and really good — a little bit pricey but worth it!</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Sheng H.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Sushi was delicious and pretty much perfect in every way. If you want to watch sushi made masterfully, come here for the omakase experience!</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Bernard M.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">Real deal Japanese food!! Chef Suzuki serves up the classics with a mean punch — sashimi personally aged and seasoned with homemade sea salt, warm clay pot stews that marry perfectly with steamed rice, and simple elegant chawanmushi. Simple, clean, traditional, and all homemade. Highly Recommended!</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Grace G.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">I absolutely love this place. The chef and servers are all very nice people. They were willing to accommodate a modification to a dish, which is now the only thing I ever order because it's so delicious. Cannot recommend them highly enough.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Chris A.</span></div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-mark" aria-hidden="true">"</div>
+          <div class="review-stars"><span>★★★★★</span></div>
+          <p class="review-text">No California roll. None of those nonsenses. Truly traditional Japanese restaurant. Sashimi and nigiri are fresh and delicious. Excellent service. The best sushi and Japanese restaurant in the area.</p>
+          <div class="review-footer"><span class="review-footer-rule"></span><span class="review-name">Chloe N.</span></div>
+        </div>
+
+      </div><!-- /carousel-inner -->
+    </div><!-- /carousel-track -->
+
+    <!-- Dots -->
+    <div class="carousel-dots" id="car-dots"></div>
+
+    <!-- Progress bar -->
+    <div class="carousel-progress">
+      <div class="carousel-progress-bar" id="car-progress"></div>
+    </div>
+  </div><!-- /carousel-wrap -->
+</section>
+
+<!-- ── VISIT ───────────────────────────────────────────────────────── -->
+<section class="visit" id="visit">
+  <div class="visit-grid">
+
+    <div class="visit-info-panel reveal">
+
+      <div class="info-block">
+        <p class="info-block-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Address
+        </p>
+        <p class="info-address">Historic Saratoga Village</p>
+        <p class="info-address">14480 Big Basin Way</p>
+        <p class="info-address" style="color:var(--stone-light)">Saratoga, CA 95070</p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-block-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Phone
+        </p>
+        <p class="info-phone"><a href="tel:+14086472258">(408) 647-2258</a></p>
+      </div>
+
+      <div class="info-block">
+        <p class="info-block-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          Hours
+        </p>
+        <table class="hours-table">
+          <tbody>
+            <tr><td>Sunday</td><td>5:00 – 9:00 PM</td></tr>
+            <tr class="closed"><td>Monday</td><td>Closed</td></tr>
+            <tr><td>Tuesday</td><td>5:00 – 9:00 PM</td></tr>
+            <tr><td>Wednesday</td><td>5:00 – 9:00 PM</td></tr>
+            <tr>
+              <td>Thursday</td>
+              <td>5:00 – 9:00 PM<span class="thu-badge">Chef's Table</span></td>
+            </tr>
+            <tr><td>Friday</td><td>5:00 – 9:00 PM</td></tr>
+            <tr><td>Saturday</td><td>5:00 – 9:00 PM</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="info-block">
+        <p class="info-block-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+          </svg>
+          Follow Us
+        </p>
+        <div class="socials">
+          <a href="https://www.facebook.com/hachijuhachi14480" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.instagram.com/hachijuhachi14480/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://x.com/88hjh" target="_blank" rel="noopener">X / Twitter</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="map-panel reveal d1">
+      <iframe
+        src="https://maps.google.com/maps?q=Hachi+Ju+Hachi,+14480+Big+Basin+Way,+Saratoga,+CA+95070&t=&z=15&ie=UTF8&iwloc=&output=embed"
+        title="Hachi Ju Hachi on Google Maps"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-kanji">八十八</span>
+    <span class="footer-name">Hachi Ju Hachi</span>
+    <p class="footer-tagline">Authentic Japanese Cuisine &nbsp;·&nbsp; Saratoga, California</p>
+    <div class="footer-socials">
+      <a href="https://www.facebook.com/hachijuhachi14480" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/hachijuhachi14480/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://x.com/88hjh" target="_blank" rel="noopener">X / Twitter</a>
+    </div>
+    <div class="footer-links">
+      <a href="#" id="privacy-link">Privacy Policy</a>
+      <span class="footer-separator">·</span>
+      <a href="tel:+14086472258">Contact</a>
+      <span class="footer-separator">·</span>
+      <a href="#visit">Directions</a>
+    </div>
+    <div class="footer-line"></div>
+    <p class="footer-copy">&copy; 2026 Hachi Ju Hachi. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ── PRIVACY POLICY MODAL ────────────────────────────────────────── -->
+<div class="privacy-modal" id="privacy-modal">
+  <div class="privacy-modal-content">
+    <div class="privacy-modal-header">
+      <h2 class="privacy-modal-title">Privacy Policy</h2>
+      <button class="privacy-modal-close" id="privacy-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="privacy-modal-body">
+      <p class="subtitle">Last Updated: April 6, 2026</p>
+
+      <p>At Hachi Ju Hachi, we value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you visit our restaurant or use our website.</p>
+
+      <h2>Information We Collect</h2>
+      
+      <h3>Reservation Information</h3>
+      <p>When you make a reservation by phone or through third-party platforms, we may collect:</p>
+      <ul>
+        <li>Your name and contact phone number</li>
+        <li>Party size and seating preferences</li>
+        <li>Special requests or dietary restrictions</li>
+        <li>Reservation date and time</li>
+      </ul>
+
+      <h3>Website Usage</h3>
+      <p>Our website may collect basic analytics data including:</p>
+      <ul>
+        <li>Browser type and device information</li>
+        <li>IP address and general location</li>
+        <li>Pages visited and time spent on site</li>
+        <li>Referral source (how you found our website)</li>
+      </ul>
+
+      <h3>In-Restaurant Experience</h3>
+      <p>During your visit, we may collect:</p>
+      <ul>
+        <li>Payment information (processed securely through our payment provider)</li>
+        <li>Dining preferences for future visits</li>
+        <li>Feedback and reviews you provide</li>
+      </ul>
+
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect to:</p>
+      <ul>
+        <li><strong>Manage Reservations:</strong> Confirm your bookings and communicate important updates</li>
+        <li><strong>Improve Service:</strong> Understand your preferences to provide a better dining experience</li>
+        <li><strong>Communication:</strong> Send reservation confirmations and respond to inquiries</li>
+        <li><strong>Website Improvement:</strong> Analyze website traffic to enhance user experience</li>
+        <li><strong>Special Events:</strong> Notify you of Thursday Chef's Selection availability or special occasions (only if you've opted in)</li>
+      </ul>
+
+      <h2>Information Sharing</h2>
+      <p>We do not sell, trade, or rent your personal information to third parties. We may share information only in the following circumstances:</p>
+      <ul>
+        <li><strong>Service Providers:</strong> With trusted third-party services (such as reservation platforms, payment processors) who help us operate our business</li>
+        <li><strong>Legal Requirements:</strong> When required by law or to protect our rights and safety</li>
+        <li><strong>Business Transfers:</strong> In connection with a merger, sale, or transfer of business assets</li>
+      </ul>
+
+      <h2>Third-Party Services</h2>
+      <p>Our website may link to third-party platforms including:</p>
+      <ul>
+        <li><strong>Google Maps:</strong> For location and directions</li>
+        <li><strong>Social Media:</strong> Facebook, Instagram, and X (Twitter) for social engagement</li>
+        <li><strong>Menu Platforms:</strong> SinglePlatform for viewing our menu</li>
+      </ul>
+      <p>These third-party services have their own privacy policies. We encourage you to review them when using these platforms.</p>
+
+      <h2>Cookies and Tracking</h2>
+      <p>Our website may use cookies and similar tracking technologies to improve your browsing experience. You can control cookie preferences through your browser settings. Please note that disabling cookies may affect website functionality.</p>
+
+      <h2>Data Security</h2>
+      <p>We implement appropriate security measures to protect your personal information from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure, and we cannot guarantee absolute security.</p>
+
+      <h2>Your Rights</h2>
+      <p>You have the right to:</p>
+      <ul>
+        <li>Access the personal information we hold about you</li>
+        <li>Request correction of inaccurate information</li>
+        <li>Request deletion of your personal information (subject to legal obligations)</li>
+        <li>Opt out of marketing communications at any time</li>
+        <li>Withdraw consent for data processing where applicable</li>
+      </ul>
+
+      <h2>Children's Privacy</h2>
+      <p>Our services are not directed to individuals under the age of 13. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately.</p>
+
+      <h2>California Privacy Rights</h2>
+      <p>California residents have additional rights under the California Consumer Privacy Act (CCPA), including the right to know what personal information is collected, request deletion of personal information, and opt out of the sale of personal information (which we do not engage in).</p>
+
+      <h2>Changes to This Policy</h2>
+      <p>We may update this Privacy Policy from time to time. Changes will be posted here with an updated "Last Updated" date. We encourage you to review this policy periodically.</p>
+
+      <h2>Contact Us</h2>
+      <div class="contact-box">
+        <p>If you have questions about this Privacy Policy or wish to exercise your privacy rights, please contact us:</p>
+        <p><strong>Hachi Ju Hachi</strong><br>
+        14480 Big Basin Way<br>
+        Saratoga, CA 95070</p>
+        <p><strong>Phone:</strong> <a href="tel:+14086472258">(408) 647-2258</a></p>
+        <p><strong>Hours:</strong> Tuesday – Sunday, 5:00 PM – 9:00 PM (Closed Mondays)</p>
+      </div>
+
+      <p style="margin-top: 32px; padding-top: 24px; border-top: 1px solid rgba(200, 169, 110, 0.15); font-size: 13px; color: var(--stone-light);">
+        By using our website or services, you acknowledge that you have read and understood this Privacy Policy.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── NAV HIDE/SHOW ──────────────────────────────────────────────
+  (function () {
+    var nav = document.getElementById('main-nav');
+    var lastY = 0, ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(function () {
+          var y = window.scrollY;
+          if (y > 90) {
+            nav.classList.toggle('hidden', y > lastY + 5);
+            if (y < lastY - 5) nav.classList.remove('hidden');
+          } else {
+            nav.classList.remove('hidden');
+          }
+          lastY = y;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  })();
+
+  // ── MOBILE MENU ────────────────────────────────────────────────
+  (function () {
+    var btn   = document.getElementById('ham-btn');
+    var menu  = document.getElementById('mob-menu');
+    var close = document.getElementById('mob-close');
+    function open() { menu.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function shut() { menu.classList.remove('open'); document.body.style.overflow = ''; }
+    btn.addEventListener('click', open);
+    close.addEventListener('click', shut);
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', shut); });
+  })();
+
+  // ── SCROLL REVEAL ──────────────────────────────────────────────
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!window.IntersectionObserver) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.10, rootMargin: '0px 0px -36px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  // ── REVIEWS CAROUSEL (3-up) ───────────────────────────────────
+  (function () {
+    var inner    = document.getElementById('car-inner');
+    var dotsWrap = document.getElementById('car-dots');
+    var bar      = document.getElementById('car-progress');
+    var btnPrev  = document.getElementById('car-prev');
+    var btnNext  = document.getElementById('car-next');
+    var track    = document.getElementById('car-track');
+    if (!inner) return;
+
+    var cards    = Array.prototype.slice.call(inner.querySelectorAll('.review-card'));
+    var total    = cards.length;
+    var GAP      = 16;   // px — matches CSS gap
+    var INTERVAL = 5000; // ms between auto-advance
+    var page     = 0;
+    var timer    = null;
+    var visible  = 3;    // updated by getVisible()
+
+    function getVisible() {
+      return window.innerWidth <= 580 ? 1
+           : window.innerWidth <= 860 ? 2
+           : 3;
+    }
+
+    function totalPages() {
+      return Math.ceil(total / visible);
+    }
+
+    // Set each card's pixel width so exactly `visible` fit in the track
+    function sizeCards() {
+      visible = getVisible();
+      var trackW = track.offsetWidth;
+      var cardW  = (trackW - GAP * (visible - 1)) / visible;
+      cards.forEach(function (c) { c.style.flexBasis = cardW + 'px'; });
+    }
+
+    // Translate inner to show the current page
+    function applyTranslate() {
+      var trackW = track.offsetWidth;
+      var cardW  = (trackW - GAP * (visible - 1)) / visible;
+      var offset = page * visible * (cardW + GAP);
+      // On the last page snap to show the final `visible` cards flush —
+      // no empty space when total isn't divisible by visible
+      var maxOffset = (total - visible) * (cardW + GAP);
+      if (offset > maxOffset) offset = maxOffset;
+      inner.style.transform = 'translateX(-' + offset + 'px)';
+    }
+
+    // Rebuild dots whenever visible count changes
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      var pages = totalPages();
+      for (var i = 0; i < pages; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'dot' + (i === page ? ' active' : '');
+        dot.setAttribute('aria-label', 'Page ' + (i + 1));
+        dot.dataset.page = i;
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      var all = dotsWrap.querySelectorAll('.dot');
+      all.forEach(function (d, i) { d.classList.toggle('active', i === page); });
+    }
+
+    function goTo(p, restart) {
+      var pages = totalPages();
+      page = ((p % pages) + pages) % pages;
+      applyTranslate();
+      updateDots();
+      if (restart !== false) resetTimer();
+    }
+
+    function startBar() {
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      void bar.offsetWidth;
+      bar.style.transition = 'width ' + INTERVAL + 'ms linear';
+      bar.style.width = '100%';
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      startBar();
+      timer = setInterval(function () { goTo(page + 1); }, INTERVAL);
+    }
+
+    // Init
+    sizeCards();
+    buildDots();
+    goTo(0, false);
+    resetTimer();
+
+    // Buttons
+    btnPrev.addEventListener('click', function () { goTo(page - 1); });
+    btnNext.addEventListener('click', function () { goTo(page + 1); });
+
+    // Dot clicks
+    dotsWrap.addEventListener('click', function (e) {
+      if (e.target.classList.contains('dot')) {
+        goTo(parseInt(e.target.dataset.page));
+      }
+    });
+
+    // Pause on hover
+    track.addEventListener('mouseenter', function () {
+      clearInterval(timer);
+      bar.style.transition = 'none';
+    });
+    track.addEventListener('mouseleave', function () { resetTimer(); });
+
+    // Touch swipe
+    var tx = 0;
+    track.addEventListener('touchstart', function (e) {
+      tx = e.changedTouches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? page + 1 : page - 1);
+    }, { passive: true });
+
+    // Resize: recompute layout
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        var prev = visible;
+        sizeCards();
+        if (visible !== prev) { buildDots(); page = 0; }
+        goTo(page, false);
+      }, 120);
+    });
+  })();
+
+  // ── MENU CAROUSEL (3-up) ───────────────────────────────────
+  (function () {
+    var inner    = document.getElementById('menu-inner');
+    var dotsWrap = document.getElementById('menu-dots');
+    var bar      = document.getElementById('menu-progress');
+    var btnPrev  = document.getElementById('menu-prev');
+    var btnNext  = document.getElementById('menu-next');
+    var track    = document.getElementById('menu-track');
+    if (!inner) return;
+
+    var cards    = Array.prototype.slice.call(inner.querySelectorAll('.dish-card'));
+    var total    = cards.length;
+    var GAP      = 24;   // px — matches CSS gap
+    var INTERVAL = 5000; // ms between auto-advance
+    var page     = 0;
+    var timer    = null;
+    var visible  = 3;    // updated by getVisible()
+
+    function getVisible() {
+      return window.innerWidth <= 580 ? 1
+           : window.innerWidth <= 860 ? 2
+           : 3;
+    }
+
+    function totalPages() {
+      return Math.ceil(total / visible);
+    }
+
+    // Set each card's pixel width so exactly `visible` fit in the track
+    function sizeCards() {
+      visible = getVisible();
+      var trackW = track.offsetWidth;
+      var cardW  = (trackW - GAP * (visible - 1)) / visible;
+      cards.forEach(function (c) { c.style.flexBasis = cardW + 'px'; });
+    }
+
+    // Translate inner to show the current page
+    function applyTranslate() {
+      var trackW = track.offsetWidth;
+      var cardW  = (trackW - GAP * (visible - 1)) / visible;
+      var offset = page * visible * (cardW + GAP);
+      // On the last page snap to show the final `visible` cards flush —
+      // no empty space when total isn't divisible by visible
+      var maxOffset = (total - visible) * (cardW + GAP);
+      if (offset > maxOffset) offset = maxOffset;
+      inner.style.transform = 'translateX(-' + offset + 'px)';
+    }
+
+    // Rebuild dots whenever visible count changes
+    function buildDots() {
+      dotsWrap.innerHTML = '';
+      var pages = totalPages();
+      for (var i = 0; i < pages; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'menu-dot' + (i === page ? ' active' : '');
+        dot.setAttribute('aria-label', 'Page ' + (i + 1));
+        dot.dataset.page = i;
+        dotsWrap.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      var all = dotsWrap.querySelectorAll('.menu-dot');
+      all.forEach(function (d, i) { d.classList.toggle('active', i === page); });
+    }
+
+    function goTo(p, restart) {
+      var pages = totalPages();
+      page = ((p % pages) + pages) % pages;
+      applyTranslate();
+      updateDots();
+      if (restart !== false) resetTimer();
+    }
+
+    function startBar() {
+      bar.style.transition = 'none';
+      bar.style.width = '0%';
+      void bar.offsetWidth;
+      bar.style.transition = 'width ' + INTERVAL + 'ms linear';
+      bar.style.width = '100%';
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      startBar();
+      timer = setInterval(function () { goTo(page + 1); }, INTERVAL);
+    }
+
+    // Init
+    sizeCards();
+    buildDots();
+    goTo(0, false);
+    resetTimer();
+
+    // Buttons
+    btnPrev.addEventListener('click', function () { goTo(page - 1); });
+    btnNext.addEventListener('click', function () { goTo(page + 1); });
+
+    // Dot clicks
+    dotsWrap.addEventListener('click', function (e) {
+      if (e.target.classList.contains('menu-dot')) {
+        goTo(parseInt(e.target.dataset.page));
+      }
+    });
+
+    // Pause on hover
+    track.addEventListener('mouseenter', function () {
+      clearInterval(timer);
+      bar.style.transition = 'none';
+    });
+    track.addEventListener('mouseleave', function () { resetTimer(); });
+
+    // Touch swipe
+    var tx = 0;
+    track.addEventListener('touchstart', function (e) {
+      tx = e.changedTouches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) goTo(dx < 0 ? page + 1 : page - 1);
+    }, { passive: true });
+
+    // Resize: recompute layout
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        var prev = visible;
+        sizeCards();
+        if (visible !== prev) { buildDots(); page = 0; }
+        goTo(page, false);
+      }, 120);
+    });
+  })();
+
+  // ── CHEF'S SELECTION IMAGE CAROUSEL ────────────────────────────
+  (function () {
+    var images = document.querySelectorAll('.chefs-image');
+    var dots = document.querySelectorAll('.chefs-dot');
+    var prevBtn = document.querySelector('.chefs-prev');
+    var nextBtn = document.querySelector('.chefs-next');
+    
+    if (images.length === 0) return;
+
+    var currentIndex = 0;
+    var FADE_INTERVAL = 5000; // Change image every 5 seconds
+    var autoTimer = null;
+
+    function goToImage(index) {
+      // Remove active from current
+      images[currentIndex].classList.remove('active');
+      dots[currentIndex].classList.remove('active');
+      
+      // Update index
+      currentIndex = index;
+      
+      // Add active to new
+      images[currentIndex].classList.add('active');
+      dots[currentIndex].classList.add('active');
+    }
+
+    function nextImage() {
+      var next = (currentIndex + 1) % images.length;
+      goToImage(next);
+    }
+
+    function prevImage() {
+      var prev = (currentIndex - 1 + images.length) % images.length;
+      goToImage(prev);
+    }
+
+    function resetAutoTimer() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(nextImage, FADE_INTERVAL);
+    }
+
+    // Arrow buttons
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        nextImage();
+        resetAutoTimer();
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        prevImage();
+        resetAutoTimer();
+      });
+    }
+
+    // Dot buttons
+    dots.forEach(function(dot, index) {
+      dot.addEventListener('click', function() {
+        goToImage(index);
+        resetAutoTimer();
+      });
+    });
+
+    // Start auto carousel
+    resetAutoTimer();
+  })();
+
+  // ── PRIVACY MODAL ───────────────────────────────────────────────
+  (function () {
+    var modal = document.getElementById('privacy-modal');
+    var openBtn = document.getElementById('privacy-link');
+    var closeBtn = document.getElementById('privacy-close');
+
+    if (!modal || !openBtn || !closeBtn) return;
+
+    // Open modal
+    openBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close on backdrop click
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close on ESC key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+  })();
+
+  // ── SMOOTH SCROLL WITH OFFSET ──────────────────────────────────
+  (function () {
+    // Handle all anchor links that start with #
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function (e) {
+        var href = this.getAttribute('href');
+        
+        // Skip if it's just "#" or privacy modal link
+        if (href === '#' || this.id === 'privacy-link') return;
+        
+        e.preventDefault();
+        var target = document.querySelector(href);
+        
+        if (target) {
+          // Get navbar height for offset (66px)
+          var navHeight = 66;
+          var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  })();
+</script>
+</body>
+</html>
